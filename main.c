@@ -6,31 +6,56 @@
 /*   By: nneuda <nneuda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 16:50:36 by nneuda            #+#    #+#             */
-/*   Updated: 2020/10/07 16:57:21 by nneuda           ###   ########.fr       */
+/*   Updated: 2020/10/09 17:08:07 by nneuda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ftprintf.h"
 
-int sum(int num_args, ...) 
+int ft_printf(char *discription, ...) 
 {
-   int val = 0;
-   va_list ap;
-   int i;
+   va_list ar;
+   int sum_output = 0;
 
-   va_start(ap, num_args);
-   for(i = 0; i < num_args; i++) {
-      val += va_arg(ap, int);
+   va_start(ar, discription);
+
+   if (discription == NULL)
+      return (-1);
+   while (*discription != '\0')
+   {
+      if(*discription == '%' && *(discription + 1) != '%')
+      {
+         //write to structure some data
+      }
+      else if (*discription == '%' && *(discription + 1) == '%')
+      {
+         discription += 2;
+         write(1, "%", 1);
+         
+      }
+      else if (*discription == '\\' && *(discription + 1) == 'n')
+      {
+         write(1, "\n", 1);
+         discription++;
+      }
+      else
+      {
+         write (1, discription, 1);
+         discription++;
+         sum_output++;
+      }
    }
-   va_end(ap);
+   va_end(ar);
  
-   return val;
+   return sum_output;
 }
 
 int main(void) 
 {
-   printf("Sum of 10, 20 and 30 = %d\n",  sum(3, 10, 20, 30) );
-   printf("Sum of 4, 20, 25 and 30 = %d\n",  sum(4, 4, 20, 25, 30) );
+   int n;
 
+   n = ft_printf("Hello %% World\n");
+   printf("%d\n", n);
+   
    return 0;
 }
