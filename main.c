@@ -6,7 +6,7 @@
 /*   By: nneuda <nneuda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 16:50:36 by nneuda            #+#    #+#             */
-/*   Updated: 2020/10/09 17:08:07 by nneuda           ###   ########.fr       */
+/*   Updated: 2020/10/09 17:17:52 by nneuda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,16 @@ int ft_printf(char *discription, ...)
       }
       else if (*discription == '%' && *(discription + 1) == '%')
       {
-         discription += 2;
+         discription +=2;
          write(1, "%", 1);
+         sum_output++;
          
       }
       else if (*discription == '\\' && *(discription + 1) == 'n')
       {
          write(1, "\n", 1);
+         sum_output++;
+
          discription++;
       }
       else
@@ -53,9 +56,10 @@ int ft_printf(char *discription, ...)
 int main(void) 
 {
    int n;
+   int m = printf("Hello %% World\n");
 
    n = ft_printf("Hello %% World\n");
-   printf("%d\n", n);
+   printf("%d\n%d", n, m);
    
    return 0;
 }
