@@ -1,7 +1,7 @@
 NAME = ftprintf
 
 FRAEMWORKS = -framework OpenGL -framework AppKit
-FLAGS = -Werror -Wextra -Wall
+# FLAGS = -Werror -Wextra -Wall
 SOURCES =  main.c 
 LIBRARIES = libft/libft.a 
 

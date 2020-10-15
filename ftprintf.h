@@ -6,7 +6,7 @@
 /*   By: nneuda <nneuda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 16:47:22 by nneuda            #+#    #+#             */
-/*   Updated: 2020/10/09 17:37:11 by nneuda           ###   ########.fr       */
+/*   Updated: 2020/10/14 17:34:10 by nneuda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,18 @@
 
 typedef struct		s_type {
 	int  		    stack_nbr;
-	char            type_conv;
+	char            *type_conv;
 }					t_type;
 
 
 typedef struct		s_arguments {
-	t_type  		*type;
-	char			flag;
+	// t_type  		*type;
+	int  		    stack_nbr;
+	char            conversation;
+	int				*flag;
 	int				width;
 	int			    length;
 	char			parameter;
-    int             nbr_output_char;
 }					t_arguments;
 
 

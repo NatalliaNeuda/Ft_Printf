@@ -6,20 +6,37 @@
 /*   By: nneuda <nneuda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 16:50:36 by nneuda            #+#    #+#             */
-/*   Updated: 2020/10/09 18:19:59 by nneuda           ###   ########.fr       */
+/*   Updated: 2020/10/14 17:51:58 by nneuda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ftprintf.h"
 
-char *parser(char **str, int sum_output)
+int parse_specifiers(const char **temp_str, va_list ar, int sum_output, char conversation)
 {
+   t_arguments new_arg;
+   int printed = 0; 
+
+   new_arg.stack_nbr = 0;
+   // find flags function
+   // find width function
+   // find parametter function
+   new_arg.conversation = conversation;
+   // print_conversation function
+   return (printed);
+}
+
+const char *parser(const char **str, int sum_output, va_list ar)
+{
+   const char *temp_str =  *str;
    
-   while (**str != 's')
+   while (**str != 's' && **str != 'c' && **str != 'p' && **str != 'd' && **str != 'i' && **str != 'u' && **str != 'x' && **str != 'X')
    {
-      //call function  to write s_arg struct
       (*str)++;
    }
+   if (!(*str))
+      return (NULL);
+   sum_output += parse_specifiers(&temp_str, ar, sum_output, **str);
    // call function to write s_type structure
    (*str)++;
    
@@ -28,7 +45,7 @@ char *parser(char **str, int sum_output)
 
 }
 
-int ft_printf(char *discription, ...) 
+int ft_printf(const char *discription, ...) 
 {
    va_list ar;
    int sum_output = 0;
@@ -41,7 +58,9 @@ int ft_printf(char *discription, ...)
    {
       if(*discription == '%' && *(discription + 1) != '%')
       {
-         parser(&discription, sum_output);
+         if (!(parser(&discription, sum_output, ar)))
+            return (-1);
+           
          //write to structure data
       }
       else if (*discription == '%' && *(discription + 1) == '%')
@@ -72,9 +91,9 @@ int ft_printf(char *discription, ...)
 int main(void) 
 {
    int n;
-   int m = printf("Hello %% World%s\n", "");
+   int m = printf("Hello %% World%", "");
 
-   n = ft_printf("Hello %% World%s\n");
+   n = ft_printf("Hello %% World%");
    printf("%d\n%d", n, m);
    
    return 0;
