@@ -6,13 +6,35 @@
 /*   By: nneuda <nneuda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 16:50:36 by nneuda            #+#    #+#             */
-/*   Updated: 2020/10/14 17:51:58 by nneuda           ###   ########.fr       */
+/*   Updated: 2020/10/16 17:44:53 by nneuda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ftprintf.h"
 
-int parse_specifiers(const char **temp_str, va_list ar, int sum_output, char conversation)
+ char *ft_str_cut_variable(char const *s)
+{
+	char		*s_fresh;
+   s_fresh = ft_strnew(7);
+
+	if (s)
+	{
+		if (*s != 's' && *s != 'c' && *s != 'p' && *s != 'd' && *s != 'i' && *s != 'u' && *s != 'x' && *s != 'X' && *s != '\0')
+		{
+         while (*s != 's' && *s != 'c' && *s != 'p' && *s != 'd' && *s != 'i' && *s != 'u' && *s != 'x' && *s != 'X' && *s != '\0')
+         {
+            *s_fresh = *s;
+            s++;
+            s_fresh++;
+         }
+      }
+      *(s_fresh++) = *s;
+      *s_fresh = '\0';
+	}
+	return (s_fresh);
+}
+
+int parse_specifiers(char *temp_str, va_list ar, int sum_output, char conversation)
 {
    t_arguments new_arg;
    int printed = 0; 
@@ -22,21 +44,22 @@ int parse_specifiers(const char **temp_str, va_list ar, int sum_output, char con
    // find width function
    // find parametter function
    new_arg.conversation = conversation;
+   printf("\nconversation is: %c", new_arg.conversation);
    // print_conversation function
    return (printed);
 }
 
 const char *parser(const char **str, int sum_output, va_list ar)
 {
-   const char *temp_str =  *str;
-   
+   const char *tmp_str = *str;
+
    while (**str != 's' && **str != 'c' && **str != 'p' && **str != 'd' && **str != 'i' && **str != 'u' && **str != 'x' && **str != 'X')
    {
       (*str)++;
    }
    if (!(*str))
       return (NULL);
-   sum_output += parse_specifiers(&temp_str, ar, sum_output, **str);
+   sum_output += parse_specifiers(ft_str_cut_variable(tmp_str), ar, sum_output, **str);
    // call function to write s_type structure
    (*str)++;
    
@@ -91,10 +114,10 @@ int ft_printf(const char *discription, ...)
 int main(void) 
 {
    int n;
-   int m = printf("Hello %% World%", "");
+   int m = printf("Hello %% World%c\n", "");
 
-   n = ft_printf("Hello %% World%");
-   printf("%d\n%d", n, m);
+   n = ft_printf("Hello %% World%d");
+   printf("\n%d\n%d", m, n);
    
    return 0;
 }
