@@ -6,7 +6,7 @@
 /*   By: nneuda <nneuda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 16:50:36 by nneuda            #+#    #+#             */
-/*   Updated: 2020/10/16 17:44:53 by nneuda           ###   ########.fr       */
+/*   Updated: 2020/10/19 17:00:31 by nneuda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int ft_printf(const char *discription, ...)
       {
          if (!(parser(&discription, sum_output, ar)))
             return (-1);
-           
          //write to structure data
       }
       else if (*discription == '%' && *(discription + 1) == '%')
@@ -96,7 +95,6 @@ int ft_printf(const char *discription, ...)
       {
          write(1, "\n", 1);
          sum_output++;
-
          discription++;
       }
       else
@@ -114,10 +112,10 @@ int ft_printf(const char *discription, ...)
 int main(void) 
 {
    int n;
-   int m = printf("Hello %% World%c\n", "");
+   int m = printf("Hello %% World%c\n", 'c');
 
-   n = ft_printf("Hello %% World%d");
+   n = ft_printf("Hello %% World%d\n", 2);
    printf("\n%d\n%d", m, n);
-   
+
    return 0;
 }
